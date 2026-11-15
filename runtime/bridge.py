@@ -1,13 +1,14 @@
 #!/usr/bin/env python3
 """A local-only debugging bridge between Fresh and debugpy's DAP adapter."""
-import json, os, socket, subprocess, sys, threading, time
+import json, os, secrets, socket, subprocess, sys, threading, time
 
 SOCKET=sys.argv[2]
 def communicate(data):
-    with socket.socket(socket.AF_UNIX) as client:
-        client.settimeout(15); client.connect(SOCKET)
-        client.sendall(json.dumps(data).encode()+b'\n')
-        reader=client.makefile('rb'); return json.loads(reader.readline())
+    with open(SOCKET, encoding='utf-8') as f:
+        endpoint=json.load(f)
+    with socket.create_connection(('127.0.0.1', endpoint['port']), timeout=15) as client:
+        client.sendall(json.dumps({'token':endpoint['token'],'request':data}).encode()+b'\n')
+        return json.loads(client.makefile('rb').readline())
 
 if sys.argv[1]=='call':
     try: print(json.dumps(communicate(json.loads(sys.argv[3]))))
@@ -141,18 +142,25 @@ class Adapter:
         with self.lock:return {'ok':True,**self.state}
 
 adapter=Adapter()
-with socket.socket(socket.AF_UNIX) as server:
-    server.bind(SOCKET)
-    if os.name != "nt": os.chmod(SOCKET,0o600)
+with socket.socket(socket.AF_INET) as server:
+    server.bind(('127.0.0.1', 0))
     server.listen(5);server.settimeout(1)
+    token=secrets.token_urlsafe(32)
+    tmp=SOCKET+'.tmp'
+    fd=os.open(tmp,os.O_CREAT|os.O_EXCL|os.O_WRONLY,0o600)
+    with os.fdopen(fd,'w',encoding='utf-8') as f: json.dump({'port':server.getsockname()[1],'token':token},f)
+    os.replace(tmp,SOCKET)
     deadline=time.monotonic()+15
     while time.monotonic()<deadline:
         try:conn,_=server.accept()
         except socket.timeout:continue
         deadline=time.monotonic()+15
         with conn:
+            data={}
             try:
-                conn.settimeout(20); raw=conn.makefile('rb').readline(1048576); data=json.loads(raw); result=adapter.run(data)
+                conn.settimeout(20); raw=conn.makefile('rb').readline(1048576); envelope=json.loads(raw)
+                if not secrets.compare_digest(envelope.get('token',''),token): raise ValueError('Unauthorized')
+                data=envelope['request']; result=adapter.run(data)
             except Exception as e: result={'ok':False,'error':str(e)}
             conn.sendall(json.dumps(result).encode()+b'\n')
             if data.get('op')=='stop': break
