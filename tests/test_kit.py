@@ -39,7 +39,12 @@ class KitTests(unittest.TestCase):
                     if pathlib.Path(sock).exists():break
                     if server.poll() is not None:self.fail('Bridge exited before creating socket')
                     time.sleep(.05)
-                state=call({'op':'start','file':str(source),'breakpoints':[], 'python':sys.executable,'debugpy_path':'','cwd':str(root)})
+                state=call({'op':'start','file':str(source),'breakpoints':[2], 'python':sys.executable,'debugpy_path':'','cwd':str(root)})
+                deadline=time.time()+15
+                while state['status']!='stopped' and time.time()<deadline:
+                    time.sleep(.2);state=call({'op':'status'})
+                self.assertEqual(state['status'],'stopped',state)
+                call({'op':'continue'})
                 deadline=time.time()+15
                 while state['status']!='finished' and time.time()<deadline:
                     time.sleep(.2);state=call({'op':'status'})

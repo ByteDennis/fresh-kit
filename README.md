@@ -21,5 +21,3 @@ Fresh Kit brings a Vi-style Fresh setup, a Gruvbox theme, file explorer improvem
    ```
 
 4. Restart Fresh and trust your project when prompted.
-
-The installer downloads Python dependencies and backs up existing Fresh configuration before replacing it. Review the backup if you have settings to merge. Terminal and TUIOS key delivery can differ between computers.
