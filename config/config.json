@@ -1,0 +1,1667 @@
+{
+  "lsp": {
+    "python": [
+      {
+        "command": "__FRESH_KIT_PYLSP__",
+        "enabled": true,
+        "name": null,
+        "args": [],
+        "auto_start": true,
+        "root_markers": [
+          "pyproject.toml",
+          "setup.py",
+          "setup.cfg",
+          "pyrightconfig.json",
+          ".git"
+        ],
+        "env": {},
+        "language_id_overrides": {},
+        "initialization_options": null,
+        "only_features": null,
+        "except_features": null,
+        "process_limits": {
+          "max_memory_percent": 50,
+          "max_cpu_percent": 90,
+          "enabled": true
+        }
+      }
+    ]
+  },
+  "theme": "__FRESH_KIT_THEME__",
+  "editor": {
+    "line_numbers": false,
+    "highlight_current_line": false
+  },
+  "plugins": {
+    "vi_mode": {
+      "settings": {
+        "autoStart": true
+      }
+    }
+  },
+  "keybindings": [
+    {
+      "keys": [
+        {
+          "key": "g",
+          "modifiers": []
+        },
+        {
+          "key": "d",
+          "modifiers": []
+        }
+      ],
+      "action": "lsp_goto_definition",
+      "when": "mode:vi-normal"
+    },
+    {
+      "keys": [
+        {
+          "key": "g",
+          "modifiers": []
+        },
+        {
+          "key": "r",
+          "modifiers": []
+        }
+      ],
+      "action": "lsp_references",
+      "when": "mode:vi-normal"
+    },
+    {
+      "keys": [
+        {
+          "key": "g",
+          "modifiers": []
+        },
+        {
+          "key": "p",
+          "modifiers": []
+        }
+      ],
+      "action": "toggle_diagnostics_panel",
+      "when": "mode:vi-normal"
+    },
+    {
+      "key": "K",
+      "modifiers": [
+        "shift"
+      ],
+      "action": "lsp_hover",
+      "when": "mode:vi-normal"
+    },
+    {
+      "keys": [
+        {
+          "key": "g",
+          "modifiers": []
+        },
+        {
+          "key": "p",
+          "modifiers": []
+        }
+      ],
+      "action": "toggle_diagnostics_panel",
+      "when": "mode:diagnostics-results"
+    },
+    {
+      "keys": [
+        {
+          "key": "a",
+          "modifiers": [
+            "ctrl"
+          ]
+        },
+        {
+          "key": "h",
+          "modifiers": []
+        }
+      ],
+      "action": "prev_split",
+      "when": "normal"
+    },
+    {
+      "keys": [
+        {
+          "key": "a",
+          "modifiers": [
+            "ctrl"
+          ]
+        },
+        {
+          "key": "l",
+          "modifiers": []
+        }
+      ],
+      "action": "next_split",
+      "when": "normal"
+    },
+    {
+      "keys": [
+        {
+          "key": "a",
+          "modifiers": [
+            "ctrl"
+          ]
+        },
+        {
+          "key": "h",
+          "modifiers": [
+            "ctrl"
+          ]
+        }
+      ],
+      "action": "prev_buffer",
+      "when": "normal"
+    },
+    {
+      "keys": [
+        {
+          "key": "a",
+          "modifiers": [
+            "ctrl"
+          ]
+        },
+        {
+          "key": "l",
+          "modifiers": [
+            "ctrl"
+          ]
+        }
+      ],
+      "action": "next_buffer",
+      "when": "normal"
+    },
+    {
+      "key": "h",
+      "modifiers": [],
+      "action": "move_left",
+      "when": "mode:special"
+    },
+    {
+      "key": "j",
+      "modifiers": [],
+      "action": "move_down",
+      "when": "mode:special"
+    },
+    {
+      "key": "k",
+      "modifiers": [],
+      "action": "move_up",
+      "when": "mode:special"
+    },
+    {
+      "key": "l",
+      "modifiers": [],
+      "action": "move_right",
+      "when": "mode:special"
+    },
+    {
+      "key": "/",
+      "modifiers": [],
+      "action": "search",
+      "when": "mode:special"
+    },
+    {
+      "key": "n",
+      "modifiers": [],
+      "action": "find_next",
+      "when": "mode:special"
+    },
+    {
+      "key": "p",
+      "modifiers": [],
+      "action": "find_previous",
+      "when": "mode:special"
+    },
+    {
+      "key": "N",
+      "modifiers": [
+        "shift"
+      ],
+      "action": "find_previous",
+      "when": "mode:special"
+    },
+    {
+      "key": "w",
+      "modifiers": [],
+      "action": "move_word_right",
+      "when": "mode:special"
+    },
+    {
+      "key": "b",
+      "modifiers": [],
+      "action": "move_word_left",
+      "when": "mode:special"
+    },
+    {
+      "key": "e",
+      "modifiers": [],
+      "action": "vi_move_word_end",
+      "when": "mode:special"
+    },
+    {
+      "key": "G",
+      "modifiers": [
+        "shift"
+      ],
+      "action": "move_document_end",
+      "when": "mode:special"
+    },
+    {
+      "key": "d",
+      "modifiers": [
+        "ctrl"
+      ],
+      "action": "vi_half_page_down",
+      "when": "mode:special"
+    },
+    {
+      "key": "u",
+      "modifiers": [
+        "ctrl"
+      ],
+      "action": "vi_half_page_up",
+      "when": "mode:special"
+    },
+    {
+      "keys": [
+        {
+          "key": "g",
+          "modifiers": []
+        },
+        {
+          "key": "g",
+          "modifiers": []
+        }
+      ],
+      "action": "move_document_start",
+      "when": "mode:special"
+    },
+    {
+      "key": "h",
+      "modifiers": [
+        "ctrl"
+      ],
+      "action": "prev_buffer",
+      "when": "normal"
+    },
+    {
+      "key": "l",
+      "modifiers": [
+        "ctrl"
+      ],
+      "action": "next_buffer",
+      "when": "normal"
+    },
+    {
+      "key": "w",
+      "modifiers": [
+        "ctrl"
+      ],
+      "action": "close_tab",
+      "when": "normal"
+    },
+    {
+      "key": "e",
+      "modifiers": [
+        "ctrl"
+      ],
+      "action": "open_live_grep",
+      "when": "normal"
+    },
+    {
+      "key": "o",
+      "modifiers": [
+        "ctrl"
+      ],
+      "action": "open",
+      "when": "mode:vi-normal"
+    },
+    {
+      "key": "o",
+      "modifiers": [
+        "ctrl"
+      ],
+      "action": "open",
+      "when": "mode:vi-insert"
+    },
+    {
+      "key": "-",
+      "modifiers": [
+        "ctrl"
+      ],
+      "action": "split_horizontal",
+      "when": "normal"
+    },
+    {
+      "key": "-",
+      "modifiers": [
+        "ctrl"
+      ],
+      "action": "split_horizontal",
+      "when": "mode:vi-normal"
+    },
+    {
+      "key": "-",
+      "modifiers": [
+        "ctrl"
+      ],
+      "action": "split_horizontal",
+      "when": "mode:vi-insert"
+    },
+    {
+      "key": "-",
+      "modifiers": [
+        "ctrl",
+        "shift"
+      ],
+      "action": "split_vertical",
+      "when": "normal"
+    },
+    {
+      "key": "-",
+      "modifiers": [
+        "ctrl",
+        "shift"
+      ],
+      "action": "split_vertical",
+      "when": "mode:vi-normal"
+    },
+    {
+      "key": "-",
+      "modifiers": [
+        "ctrl",
+        "shift"
+      ],
+      "action": "split_vertical",
+      "when": "mode:vi-insert"
+    },
+    {
+      "key": "h",
+      "modifiers": [
+        "alt"
+      ],
+      "action": "prev_split",
+      "when": "normal"
+    },
+    {
+      "key": "l",
+      "modifiers": [
+        "alt"
+      ],
+      "action": "next_split",
+      "when": "normal"
+    },
+    {
+      "key": "h",
+      "modifiers": [
+        "alt"
+      ],
+      "action": "prev_split",
+      "when": "mode:vi-normal"
+    },
+    {
+      "key": "l",
+      "modifiers": [
+        "alt"
+      ],
+      "action": "next_split",
+      "when": "mode:vi-normal"
+    },
+    {
+      "key": "h",
+      "modifiers": [
+        "alt"
+      ],
+      "action": "prev_split",
+      "when": "mode:vi-insert"
+    },
+    {
+      "key": "l",
+      "modifiers": [
+        "alt"
+      ],
+      "action": "next_split",
+      "when": "mode:vi-insert"
+    },
+    {
+      "key": "j",
+      "modifiers": [
+        "ctrl"
+      ],
+      "action": "prompt_select_next",
+      "when": "prompt"
+    },
+    {
+      "key": "k",
+      "modifiers": [
+        "ctrl"
+      ],
+      "action": "prompt_select_prev",
+      "when": "prompt"
+    },
+    {
+      "key": "d",
+      "modifiers": [
+        "ctrl"
+      ],
+      "action": "prompt_page_down",
+      "when": "prompt"
+    },
+    {
+      "key": "u",
+      "modifiers": [
+        "ctrl"
+      ],
+      "action": "prompt_page_up",
+      "when": "prompt"
+    },
+    {
+      "key": "t",
+      "modifiers": [
+        "ctrl"
+      ],
+      "action": "open_terminal_in_dock",
+      "when": "normal"
+    },
+    {
+      "key": "t",
+      "modifiers": [
+        "ctrl"
+      ],
+      "action": "open_terminal_in_dock",
+      "when": "mode:vi-normal"
+    },
+    {
+      "key": "t",
+      "modifiers": [
+        "ctrl"
+      ],
+      "action": "open_terminal_in_dock",
+      "when": "mode:vi-insert"
+    },
+    {
+      "key": "`",
+      "modifiers": [
+        "alt"
+      ],
+      "action": "unbind",
+      "when": "normal"
+    },
+    {
+      "key": "b",
+      "modifiers": [
+        "ctrl"
+      ],
+      "action": "toggle_file_explorer",
+      "when": "mode:vi-normal"
+    },
+    {
+      "key": "b",
+      "modifiers": [
+        "ctrl"
+      ],
+      "action": "toggle_file_explorer",
+      "when": "mode:vi-insert"
+    },
+    {
+      "key": "f",
+      "modifiers": [
+        "ctrl"
+      ],
+      "action": "search",
+      "when": "mode:vi-normal"
+    },
+    {
+      "key": "f",
+      "modifiers": [
+        "ctrl"
+      ],
+      "action": "search",
+      "when": "mode:special"
+    },
+    {
+      "key": "h",
+      "modifiers": [],
+      "action": "file_explorer_collapse",
+      "when": "file_explorer"
+    },
+    {
+      "key": "j",
+      "modifiers": [],
+      "action": "file_explorer_down",
+      "when": "file_explorer"
+    },
+    {
+      "key": "k",
+      "modifiers": [],
+      "action": "file_explorer_up",
+      "when": "file_explorer"
+    },
+    {
+      "key": ".",
+      "modifiers": [],
+      "action": "file_explorer_toggle_hidden",
+      "when": "file_explorer"
+    },
+    {
+      "key": "a",
+      "modifiers": [],
+      "action": "lf_add_menu",
+      "when": "file_explorer"
+    },
+    {
+      "key": "f",
+      "modifiers": [],
+      "action": "quick_open_files",
+      "when": "file_explorer"
+    },
+    {
+      "key": "l",
+      "modifiers": [],
+      "action": "file_explorer_open",
+      "when": "file_explorer"
+    },
+    {
+      "key": "c",
+      "modifiers": [],
+      "action": "lf_command_menu",
+      "when": "file_explorer"
+    },
+    {
+      "key": "n",
+      "modifiers": [
+        "ctrl"
+      ],
+      "action": "unbind",
+      "when": "file_explorer"
+    },
+    {
+      "key": "n",
+      "modifiers": [
+        "ctrl",
+        "shift"
+      ],
+      "action": "unbind",
+      "when": "file_explorer"
+    },
+    {
+      "key": "F2",
+      "modifiers": [],
+      "action": "unbind",
+      "when": "file_explorer"
+    },
+    {
+      "key": "Delete",
+      "modifiers": [],
+      "action": "unbind",
+      "when": "file_explorer"
+    },
+    {
+      "key": "c",
+      "modifiers": [
+        "ctrl"
+      ],
+      "action": "unbind",
+      "when": "file_explorer"
+    },
+    {
+      "key": "x",
+      "modifiers": [
+        "ctrl"
+      ],
+      "action": "unbind",
+      "when": "file_explorer"
+    },
+    {
+      "key": "v",
+      "modifiers": [
+        "ctrl"
+      ],
+      "action": "unbind",
+      "when": "file_explorer"
+    },
+    {
+      "key": "z",
+      "modifiers": [],
+      "action": "float_tree_open",
+      "when": "file_explorer"
+    },
+    {
+      "key": "/",
+      "modifiers": [
+        "ctrl",
+        "shift"
+      ],
+      "action": "user_keys_open",
+      "when": "normal"
+    },
+    {
+      "key": "/",
+      "modifiers": [
+        "ctrl",
+        "shift"
+      ],
+      "action": "user_keys_open",
+      "when": "mode:vi-normal"
+    },
+    {
+      "key": "/",
+      "modifiers": [
+        "ctrl",
+        "shift"
+      ],
+      "action": "user_keys_open",
+      "when": "mode:vi-insert"
+    },
+    {
+      "key": "/",
+      "modifiers": [
+        "ctrl",
+        "shift"
+      ],
+      "action": "user_keys_explorer",
+      "when": "file_explorer"
+    },
+    {
+      "key": "b",
+      "modifiers": [],
+      "action": "noop",
+      "when": "file_explorer"
+    },
+    {
+      "key": "d",
+      "modifiers": [],
+      "action": "noop",
+      "when": "file_explorer"
+    },
+    {
+      "key": "e",
+      "modifiers": [],
+      "action": "noop",
+      "when": "file_explorer"
+    },
+    {
+      "key": "g",
+      "modifiers": [],
+      "action": "noop",
+      "when": "file_explorer"
+    },
+    {
+      "key": "i",
+      "modifiers": [],
+      "action": "noop",
+      "when": "file_explorer"
+    },
+    {
+      "key": "m",
+      "modifiers": [],
+      "action": "noop",
+      "when": "file_explorer"
+    },
+    {
+      "key": "n",
+      "modifiers": [],
+      "action": "noop",
+      "when": "file_explorer"
+    },
+    {
+      "key": "o",
+      "modifiers": [],
+      "action": "noop",
+      "when": "file_explorer"
+    },
+    {
+      "key": "p",
+      "modifiers": [],
+      "action": "noop",
+      "when": "file_explorer"
+    },
+    {
+      "key": "q",
+      "modifiers": [],
+      "action": "noop",
+      "when": "file_explorer"
+    },
+    {
+      "key": "r",
+      "modifiers": [],
+      "action": "noop",
+      "when": "file_explorer"
+    },
+    {
+      "key": "s",
+      "modifiers": [],
+      "action": "noop",
+      "when": "file_explorer"
+    },
+    {
+      "key": "t",
+      "modifiers": [],
+      "action": "noop",
+      "when": "file_explorer"
+    },
+    {
+      "key": "u",
+      "modifiers": [],
+      "action": "noop",
+      "when": "file_explorer"
+    },
+    {
+      "key": "v",
+      "modifiers": [],
+      "action": "noop",
+      "when": "file_explorer"
+    },
+    {
+      "key": "w",
+      "modifiers": [],
+      "action": "noop",
+      "when": "file_explorer"
+    },
+    {
+      "key": "x",
+      "modifiers": [],
+      "action": "noop",
+      "when": "file_explorer"
+    },
+    {
+      "key": "y",
+      "modifiers": [],
+      "action": "noop",
+      "when": "file_explorer"
+    },
+    {
+      "key": "0",
+      "modifiers": [],
+      "action": "noop",
+      "when": "file_explorer"
+    },
+    {
+      "key": "1",
+      "modifiers": [],
+      "action": "noop",
+      "when": "file_explorer"
+    },
+    {
+      "key": "2",
+      "modifiers": [],
+      "action": "noop",
+      "when": "file_explorer"
+    },
+    {
+      "key": "3",
+      "modifiers": [],
+      "action": "noop",
+      "when": "file_explorer"
+    },
+    {
+      "key": "4",
+      "modifiers": [],
+      "action": "noop",
+      "when": "file_explorer"
+    },
+    {
+      "key": "5",
+      "modifiers": [],
+      "action": "noop",
+      "when": "file_explorer"
+    },
+    {
+      "key": "6",
+      "modifiers": [],
+      "action": "noop",
+      "when": "file_explorer"
+    },
+    {
+      "key": "7",
+      "modifiers": [],
+      "action": "noop",
+      "when": "file_explorer"
+    },
+    {
+      "key": "8",
+      "modifiers": [],
+      "action": "noop",
+      "when": "file_explorer"
+    },
+    {
+      "key": "9",
+      "modifiers": [],
+      "action": "noop",
+      "when": "file_explorer"
+    },
+    {
+      "key": "!",
+      "modifiers": [],
+      "action": "noop",
+      "when": "file_explorer"
+    },
+    {
+      "key": "\"",
+      "modifiers": [],
+      "action": "noop",
+      "when": "file_explorer"
+    },
+    {
+      "key": "#",
+      "modifiers": [],
+      "action": "noop",
+      "when": "file_explorer"
+    },
+    {
+      "key": "$",
+      "modifiers": [],
+      "action": "noop",
+      "when": "file_explorer"
+    },
+    {
+      "key": "%",
+      "modifiers": [],
+      "action": "noop",
+      "when": "file_explorer"
+    },
+    {
+      "key": "&",
+      "modifiers": [],
+      "action": "noop",
+      "when": "file_explorer"
+    },
+    {
+      "key": "'",
+      "modifiers": [],
+      "action": "noop",
+      "when": "file_explorer"
+    },
+    {
+      "key": "(",
+      "modifiers": [],
+      "action": "noop",
+      "when": "file_explorer"
+    },
+    {
+      "key": ")",
+      "modifiers": [],
+      "action": "noop",
+      "when": "file_explorer"
+    },
+    {
+      "key": "*",
+      "modifiers": [],
+      "action": "noop",
+      "when": "file_explorer"
+    },
+    {
+      "key": "+",
+      "modifiers": [],
+      "action": "noop",
+      "when": "file_explorer"
+    },
+    {
+      "key": ",",
+      "modifiers": [],
+      "action": "noop",
+      "when": "file_explorer"
+    },
+    {
+      "key": "-",
+      "modifiers": [],
+      "action": "noop",
+      "when": "file_explorer"
+    },
+    {
+      "key": "/",
+      "modifiers": [],
+      "action": "noop",
+      "when": "file_explorer"
+    },
+    {
+      "key": ":",
+      "modifiers": [],
+      "action": "noop",
+      "when": "file_explorer"
+    },
+    {
+      "key": ";",
+      "modifiers": [],
+      "action": "noop",
+      "when": "file_explorer"
+    },
+    {
+      "key": "<",
+      "modifiers": [],
+      "action": "noop",
+      "when": "file_explorer"
+    },
+    {
+      "key": "=",
+      "modifiers": [],
+      "action": "noop",
+      "when": "file_explorer"
+    },
+    {
+      "key": ">",
+      "modifiers": [],
+      "action": "noop",
+      "when": "file_explorer"
+    },
+    {
+      "key": "?",
+      "modifiers": [],
+      "action": "noop",
+      "when": "file_explorer"
+    },
+    {
+      "key": "@",
+      "modifiers": [],
+      "action": "noop",
+      "when": "file_explorer"
+    },
+    {
+      "key": "[",
+      "modifiers": [],
+      "action": "noop",
+      "when": "file_explorer"
+    },
+    {
+      "key": "\\",
+      "modifiers": [],
+      "action": "noop",
+      "when": "file_explorer"
+    },
+    {
+      "key": "]",
+      "modifiers": [],
+      "action": "noop",
+      "when": "file_explorer"
+    },
+    {
+      "key": "^",
+      "modifiers": [],
+      "action": "noop",
+      "when": "file_explorer"
+    },
+    {
+      "key": "_",
+      "modifiers": [],
+      "action": "noop",
+      "when": "file_explorer"
+    },
+    {
+      "key": "`",
+      "modifiers": [],
+      "action": "noop",
+      "when": "file_explorer"
+    },
+    {
+      "key": "{",
+      "modifiers": [],
+      "action": "noop",
+      "when": "file_explorer"
+    },
+    {
+      "key": "|",
+      "modifiers": [],
+      "action": "noop",
+      "when": "file_explorer"
+    },
+    {
+      "key": "}",
+      "modifiers": [],
+      "action": "noop",
+      "when": "file_explorer"
+    },
+    {
+      "key": "~",
+      "modifiers": [],
+      "action": "noop",
+      "when": "file_explorer"
+    },
+    {
+      "key": "F11",
+      "modifiers": [
+        "shift"
+      ],
+      "action": "python_debug_step_out",
+      "when": "normal"
+    },
+    {
+      "key": "F11",
+      "modifiers": [
+        "shift"
+      ],
+      "action": "python_debug_step_out",
+      "when": "mode:vi-normal"
+    },
+    {
+      "key": "F11",
+      "modifiers": [
+        "shift"
+      ],
+      "action": "python_debug_step_out",
+      "when": "mode:vi-insert"
+    },
+    {
+      "keys": [
+        {
+          "key": "d",
+          "modifiers": [
+            "ctrl"
+          ]
+        },
+        {
+          "key": "p",
+          "modifiers": [
+            "ctrl"
+          ]
+        }
+      ],
+      "action": "python_debug_start",
+      "when": "normal"
+    },
+    {
+      "keys": [
+        {
+          "key": "d",
+          "modifiers": [
+            "ctrl"
+          ]
+        },
+        {
+          "key": "r",
+          "modifiers": [
+            "ctrl"
+          ]
+        }
+      ],
+      "action": "python_debug_restart",
+      "when": "normal"
+    },
+    {
+      "keys": [
+        {
+          "key": "d",
+          "modifiers": [
+            "ctrl"
+          ]
+        },
+        {
+          "key": "g",
+          "modifiers": [
+            "ctrl"
+          ]
+        }
+      ],
+      "action": "python_debug_continue",
+      "when": "normal"
+    },
+    {
+      "keys": [
+        {
+          "key": "d",
+          "modifiers": [
+            "ctrl"
+          ]
+        },
+        {
+          "key": "n",
+          "modifiers": [
+            "ctrl"
+          ]
+        }
+      ],
+      "action": "python_debug_next",
+      "when": "normal"
+    },
+    {
+      "keys": [
+        {
+          "key": "d",
+          "modifiers": [
+            "ctrl"
+          ]
+        },
+        {
+          "key": "i",
+          "modifiers": [
+            "ctrl"
+          ]
+        }
+      ],
+      "action": "python_debug_step_in",
+      "when": "normal"
+    },
+    {
+      "keys": [
+        {
+          "key": "d",
+          "modifiers": [
+            "ctrl"
+          ]
+        },
+        {
+          "key": "q",
+          "modifiers": [
+            "ctrl"
+          ]
+        }
+      ],
+      "action": "python_debug_stop",
+      "when": "normal"
+    },
+    {
+      "keys": [
+        {
+          "key": "d",
+          "modifiers": [
+            "ctrl"
+          ]
+        },
+        {
+          "key": "d",
+          "modifiers": [
+            "ctrl"
+          ]
+        }
+      ],
+      "action": "python_debug_breakpoint",
+      "when": "normal"
+    },
+    {
+      "keys": [
+        {
+          "key": "d",
+          "modifiers": [
+            "ctrl"
+          ]
+        },
+        {
+          "key": "c",
+          "modifiers": [
+            "ctrl"
+          ]
+        }
+      ],
+      "action": "python_debug_conditional",
+      "when": "normal"
+    },
+    {
+      "keys": [
+        {
+          "key": "d",
+          "modifiers": [
+            "ctrl"
+          ]
+        },
+        {
+          "key": "p",
+          "modifiers": [
+            "ctrl"
+          ]
+        }
+      ],
+      "action": "python_debug_start",
+      "when": "mode:vi-normal"
+    },
+    {
+      "keys": [
+        {
+          "key": "d",
+          "modifiers": [
+            "ctrl"
+          ]
+        },
+        {
+          "key": "r",
+          "modifiers": [
+            "ctrl"
+          ]
+        }
+      ],
+      "action": "python_debug_restart",
+      "when": "mode:vi-normal"
+    },
+    {
+      "keys": [
+        {
+          "key": "d",
+          "modifiers": [
+            "ctrl"
+          ]
+        },
+        {
+          "key": "g",
+          "modifiers": [
+            "ctrl"
+          ]
+        }
+      ],
+      "action": "python_debug_continue",
+      "when": "mode:vi-normal"
+    },
+    {
+      "keys": [
+        {
+          "key": "d",
+          "modifiers": [
+            "ctrl"
+          ]
+        },
+        {
+          "key": "n",
+          "modifiers": [
+            "ctrl"
+          ]
+        }
+      ],
+      "action": "python_debug_next",
+      "when": "mode:vi-normal"
+    },
+    {
+      "keys": [
+        {
+          "key": "d",
+          "modifiers": [
+            "ctrl"
+          ]
+        },
+        {
+          "key": "i",
+          "modifiers": [
+            "ctrl"
+          ]
+        }
+      ],
+      "action": "python_debug_step_in",
+      "when": "mode:vi-normal"
+    },
+    {
+      "keys": [
+        {
+          "key": "d",
+          "modifiers": [
+            "ctrl"
+          ]
+        },
+        {
+          "key": "q",
+          "modifiers": [
+            "ctrl"
+          ]
+        }
+      ],
+      "action": "python_debug_stop",
+      "when": "mode:vi-normal"
+    },
+    {
+      "keys": [
+        {
+          "key": "d",
+          "modifiers": [
+            "ctrl"
+          ]
+        },
+        {
+          "key": "d",
+          "modifiers": [
+            "ctrl"
+          ]
+        }
+      ],
+      "action": "python_debug_breakpoint",
+      "when": "mode:vi-normal"
+    },
+    {
+      "keys": [
+        {
+          "key": "d",
+          "modifiers": [
+            "ctrl"
+          ]
+        },
+        {
+          "key": "c",
+          "modifiers": [
+            "ctrl"
+          ]
+        }
+      ],
+      "action": "python_debug_conditional",
+      "when": "mode:vi-normal"
+    },
+    {
+      "keys": [
+        {
+          "key": "d",
+          "modifiers": [
+            "ctrl"
+          ]
+        },
+        {
+          "key": "p",
+          "modifiers": [
+            "ctrl"
+          ]
+        }
+      ],
+      "action": "python_debug_start",
+      "when": "mode:vi-insert"
+    },
+    {
+      "keys": [
+        {
+          "key": "d",
+          "modifiers": [
+            "ctrl"
+          ]
+        },
+        {
+          "key": "r",
+          "modifiers": [
+            "ctrl"
+          ]
+        }
+      ],
+      "action": "python_debug_restart",
+      "when": "mode:vi-insert"
+    },
+    {
+      "keys": [
+        {
+          "key": "d",
+          "modifiers": [
+            "ctrl"
+          ]
+        },
+        {
+          "key": "g",
+          "modifiers": [
+            "ctrl"
+          ]
+        }
+      ],
+      "action": "python_debug_continue",
+      "when": "mode:vi-insert"
+    },
+    {
+      "keys": [
+        {
+          "key": "d",
+          "modifiers": [
+            "ctrl"
+          ]
+        },
+        {
+          "key": "n",
+          "modifiers": [
+            "ctrl"
+          ]
+        }
+      ],
+      "action": "python_debug_next",
+      "when": "mode:vi-insert"
+    },
+    {
+      "keys": [
+        {
+          "key": "d",
+          "modifiers": [
+            "ctrl"
+          ]
+        },
+        {
+          "key": "i",
+          "modifiers": [
+            "ctrl"
+          ]
+        }
+      ],
+      "action": "python_debug_step_in",
+      "when": "mode:vi-insert"
+    },
+    {
+      "keys": [
+        {
+          "key": "d",
+          "modifiers": [
+            "ctrl"
+          ]
+        },
+        {
+          "key": "q",
+          "modifiers": [
+            "ctrl"
+          ]
+        }
+      ],
+      "action": "python_debug_stop",
+      "when": "mode:vi-insert"
+    },
+    {
+      "keys": [
+        {
+          "key": "d",
+          "modifiers": [
+            "ctrl"
+          ]
+        },
+        {
+          "key": "d",
+          "modifiers": [
+            "ctrl"
+          ]
+        }
+      ],
+      "action": "python_debug_breakpoint",
+      "when": "mode:vi-insert"
+    },
+    {
+      "keys": [
+        {
+          "key": "d",
+          "modifiers": [
+            "ctrl"
+          ]
+        },
+        {
+          "key": "c",
+          "modifiers": [
+            "ctrl"
+          ]
+        }
+      ],
+      "action": "python_debug_conditional",
+      "when": "mode:vi-insert"
+    },
+    {
+      "key": "j",
+      "modifiers": [
+        "ctrl"
+      ],
+      "action": "vi_half_page_down",
+      "when": "mode:vi-normal"
+    },
+    {
+      "key": "k",
+      "modifiers": [
+        "ctrl"
+      ],
+      "action": "vi_half_page_up",
+      "when": "mode:vi-normal"
+    },
+    {
+      "key": "u",
+      "modifiers": [
+        "ctrl"
+      ],
+      "action": "vi_redo",
+      "when": "mode:vi-normal"
+    },
+    {
+      "keys": [
+        {
+          "key": "d",
+          "modifiers": [
+            "ctrl"
+          ]
+        },
+        {
+          "key": "r",
+          "modifiers": [
+            "ctrl"
+          ]
+        }
+      ],
+      "action": "python_debug_restart",
+      "when": "mode:python-debug-panel"
+    },
+    {
+      "keys": [
+        {
+          "key": "d",
+          "modifiers": [
+            "ctrl"
+          ]
+        },
+        {
+          "key": "g",
+          "modifiers": [
+            "ctrl"
+          ]
+        }
+      ],
+      "action": "python_debug_continue",
+      "when": "mode:python-debug-panel"
+    },
+    {
+      "keys": [
+        {
+          "key": "d",
+          "modifiers": [
+            "ctrl"
+          ]
+        },
+        {
+          "key": "n",
+          "modifiers": [
+            "ctrl"
+          ]
+        }
+      ],
+      "action": "python_debug_next",
+      "when": "mode:python-debug-panel"
+    },
+    {
+      "keys": [
+        {
+          "key": "d",
+          "modifiers": [
+            "ctrl"
+          ]
+        },
+        {
+          "key": "i",
+          "modifiers": [
+            "ctrl"
+          ]
+        }
+      ],
+      "action": "python_debug_step_in",
+      "when": "mode:python-debug-panel"
+    },
+    {
+      "keys": [
+        {
+          "key": "d",
+          "modifiers": [
+            "ctrl"
+          ]
+        },
+        {
+          "key": "q",
+          "modifiers": [
+            "ctrl"
+          ]
+        }
+      ],
+      "action": "python_debug_stop",
+      "when": "mode:python-debug-panel"
+    },
+    {
+      "keys": [
+        {
+          "key": "d",
+          "modifiers": [
+            "ctrl"
+          ]
+        },
+        {
+          "key": "b",
+          "modifiers": [
+            "ctrl"
+          ]
+        }
+      ],
+      "action": "python_debug_sidebar",
+      "when": "normal"
+    },
+    {
+      "keys": [
+        {
+          "key": "d",
+          "modifiers": [
+            "ctrl"
+          ]
+        },
+        {
+          "key": "b",
+          "modifiers": [
+            "ctrl"
+          ]
+        }
+      ],
+      "action": "python_debug_sidebar",
+      "when": "mode:vi-normal"
+    },
+    {
+      "keys": [
+        {
+          "key": "d",
+          "modifiers": [
+            "ctrl"
+          ]
+        },
+        {
+          "key": "b",
+          "modifiers": [
+            "ctrl"
+          ]
+        }
+      ],
+      "action": "python_debug_sidebar",
+      "when": "mode:vi-insert"
+    },
+    {
+      "keys": [
+        {
+          "key": "d",
+          "modifiers": [
+            "ctrl"
+          ]
+        },
+        {
+          "key": "b",
+          "modifiers": [
+            "ctrl"
+          ]
+        }
+      ],
+      "action": "python_debug_sidebar",
+      "when": "mode:python-debug-panel"
+    }
+  ],
+  "file_explorer": {
+    "show_hidden": false
+  }
+}

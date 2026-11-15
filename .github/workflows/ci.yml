@@ -1,0 +1,33 @@
+name: CI
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
+jobs:
+  test:
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest, windows-latest]
+    runs-on: ${{ matrix.os }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Install test dependencies
+        run: python -m pip install 'debugpy>=1.8,<2' 'Send2Trash>=1.8,<2'
+      - name: Test installer and real debug adapter
+        run: python -m unittest discover -s tests -v
+      - name: Install kit and check Fresh script on Windows
+        if: runner.os == 'Windows'
+        shell: pwsh
+        run: |
+          python install.py --config-dir "$env:RUNNER_TEMP/fresh-config"
+          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+          Invoke-WebRequest -Uri 'https://github.com/sinelaw/fresh/releases/download/v0.5.8/fresh-editor-x86_64-pc-windows-msvc.zip' -OutFile "$env:RUNNER_TEMP/fresh.zip"
+          Expand-Archive "$env:RUNNER_TEMP/fresh.zip" -DestinationPath "$env:RUNNER_TEMP/fresh-bin"
+          $binary = Get-ChildItem "$env:RUNNER_TEMP/fresh-bin" -Filter fresh.exe -Recurse | Select-Object -First 1 -ExpandProperty FullName
+          if (-not $binary) { throw 'fresh.exe missing from upstream archive' }
+          & $binary --cmd script check "$env:RUNNER_TEMP/fresh-config/init.ts"
+          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
