@@ -1,0 +1,22 @@
+name: Release
+on:
+  push:
+    tags:
+      - 'v*'
+permissions:
+  contents: write
+jobs:
+  test:
+    uses: ./.github/workflows/ci.yml
+  release:
+    needs: test
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Create release archive
+        run: git archive --format=zip --output="fresh-kit-${GITHUB_REF_NAME}.zip" "$GITHUB_SHA"
+      - name: Publish release
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          gh release create "$GITHUB_REF_NAME" "fresh-kit-${GITHUB_REF_NAME}.zip" --verify-tag --title "Fresh Kit $GITHUB_REF_NAME" --notes "Cross-platform Fresh configuration. See README for installation and requirements."
