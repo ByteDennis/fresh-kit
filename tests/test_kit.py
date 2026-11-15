@@ -9,7 +9,7 @@ class KitTests(unittest.TestCase):
             target=pathlib.Path(tmp)/'fresh';target.mkdir();(target/'config.json').write_text('{"old":true}')
             install.install(target,skip_deps=True)
             config=json.loads((target/'config.json').read_text(encoding='utf-8'))
-            self.assertEqual(config['theme'],(target/'themes/gruvbox-design.json').as_uri())
+            self.assertEqual(config['theme'],(target.resolve()/'themes/gruvbox-design.json').as_uri())
             self.assertTrue(pathlib.Path(config['lsp']['python'][0]['command']).is_absolute())
             source=(target/'init.ts').read_text(encoding='utf-8')
             self.assertNotIn('__FRESH_KIT_PYTHON__',source)

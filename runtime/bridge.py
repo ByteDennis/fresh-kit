@@ -15,7 +15,7 @@ if sys.argv[1]=='call':
     raise SystemExit
 
 try: os.setsid()
-except OSError: pass
+except (AttributeError, OSError): pass
 
 class Adapter:
     def __init__(self):
