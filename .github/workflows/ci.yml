@@ -30,5 +30,8 @@ jobs:
           Expand-Archive "$env:RUNNER_TEMP/fresh.zip" -DestinationPath "$env:RUNNER_TEMP/fresh-bin"
           $binary = Get-ChildItem "$env:RUNNER_TEMP/fresh-bin" -Filter fresh.exe -Recurse | Select-Object -First 1 -ExpandProperty FullName
           if (-not $binary) { throw 'fresh.exe missing from upstream archive' }
+          $types = Join-Path $env:APPDATA 'fresh/types'
+          New-Item -ItemType Directory -Force -Path $types | Out-Null
+          Invoke-WebRequest -Uri 'https://raw.githubusercontent.com/sinelaw/fresh/v0.5.8/crates/fresh-editor/plugins/lib/fresh.d.ts' -OutFile (Join-Path $types 'fresh.d.ts')
           & $binary --cmd script check "$env:RUNNER_TEMP/fresh-config/init.ts"
           if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
