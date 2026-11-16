@@ -1,0 +1,29 @@
+name: Windows EXE interactive test
+on:
+  workflow_dispatch:
+    inputs:
+      build_run:
+        description: Successful Windows EXE workflow run ID
+        required: true
+        type: string
+permissions:
+  actions: read
+  contents: read
+jobs:
+  test:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Download tested executable
+        uses: actions/download-artifact@v4
+        with:
+          name: FreshKit-windows-x64
+          run-id: ${{ inputs.build_run }}
+          github-token: ${{ github.token }}
+          path: executable
+      - run: python -m pip install pywinpty pyte
+      - name: Open a file inside the packaged editor
+        run: python portable/tests/interactive.py executable/fresh-kit.exe

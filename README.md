@@ -4,7 +4,7 @@ A lightweight Fresh setup with Vi-style editing, Gruvbox, an enhanced file explo
 
 ## Windows
 
-Download `FreshKit.exe` from Releases and run it. Its configuration is stored separately in `%LOCALAPPDATA%/FreshKit`; existing Fresh settings are not overwritten.
+Download `fresh-kit.exe` from Releases and run it. Its configuration is stored separately in `%LOCALAPPDATA%/FreshKit`; existing Fresh settings are not overwritten.
 
 Python is not bundled. Install Python 3.10+ and these packages for Python-related features:
 
