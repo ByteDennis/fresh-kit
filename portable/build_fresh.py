@@ -19,7 +19,23 @@ patch='''    fn default_config_dir() -> Option<std::path::PathBuf> {
         }
 '''
 if text.count(needle)!=1:raise RuntimeError('Fresh configuration patch did not match')
-config.write_text(text.replace(needle,patch),encoding='utf-8')
+text=text.replace(needle,patch)
+data_needle='''        let data_dir = dirs::data_dir()
+            .ok_or_else(|| {
+                std::io::Error::new(
+                    std::io::ErrorKind::NotFound,
+                    "Could not determine data directory",
+                )
+            })?
+            .join("fresh");'''
+data_patch='''        let data_dir = match std::env::var_os("FRESH_KIT_DATA_DIR") {
+            Some(path) if !path.is_empty() => std::path::PathBuf::from(path),
+            _ => dirs::data_dir().ok_or_else(|| {
+                std::io::Error::new(std::io::ErrorKind::NotFound, "Could not determine data directory")
+            })?.join("fresh"),
+        };'''
+if text.count(data_needle)!=1:raise RuntimeError('Fresh data directory patch did not match')
+config.write_text(text.replace(data_needle,data_patch),encoding='utf-8')
 env=os.environ.copy();env['CARGO_INCREMENTAL']='0'
 subprocess.run(['cargo','build','--locked','--profile','min-size','-p','fresh-editor','--bin','fresh'],cwd=source,env=env,check=True)
 print('Fresh built at',source/'target/min-size/fresh.exe')

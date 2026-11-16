@@ -16,12 +16,15 @@ $config = Get-Content -Raw (Join-Path $profile 'config.json') | ConvertFrom-Json
 if ($config.lsp.python[0].command -eq 'python' -or -not (Test-Path $config.lsp.python[0].command)) { throw 'System Python was not detected' }
 if ($config.lsp.python[0].args[0] -ne '-m' -or $config.lsp.python[0].args[1] -ne 'pylsp') { throw 'Unexpected LSP command' }
 $env:FRESH_KIT_CONFIG_DIR = $profile
+$env:FRESH_KIT_DATA_DIR = Join-Path $env:LOCALAPPDATA 'FreshKit/data'
 $types = Join-Path $profile 'types'
 New-Item -ItemType Directory -Force -Path $types | Out-Null
 Invoke-WebRequest -Uri 'https://raw.githubusercontent.com/sinelaw/fresh/v0.5.8/crates/fresh-editor/plugins/lib/fresh.d.ts' -OutFile (Join-Path $types 'fresh.d.ts')
 $fresh = Join-Path $env:LOCALAPPDATA 'FreshKit/runtime/0.2.0/fresh.exe'
 & $fresh --cmd config paths | Out-File -Encoding utf8 (Join-Path $env:RUNNER_TEMP 'fresh-paths.txt')
-if (-not ((Get-Content -Raw (Join-Path $env:RUNNER_TEMP 'fresh-paths.txt')).Contains($profile))) { throw 'Fresh did not use isolated configuration' }
+$paths = Get-Content -Raw (Join-Path $env:RUNNER_TEMP 'fresh-paths.txt')
+if (-not $paths.Contains($profile)) { throw 'Fresh did not use isolated configuration' }
+if (-not $paths.Contains($env:FRESH_KIT_DATA_DIR)) { throw 'Fresh did not use isolated data directory' }
 & $fresh --cmd script check (Join-Path $profile 'init.ts')
 if ($LASTEXITCODE -ne 0) { throw 'Generated Fresh init failed validation' }
 Write-Output "EXE bytes: $((Get-Item $Executable).Length)"
