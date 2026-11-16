@@ -41,6 +41,24 @@
   },
   "keybindings": [
     {
+      "key": "?",
+      "modifiers": [],
+      "action": "user_review_keys",
+      "when": "mode:review-mode"
+    },
+    {
+      "key": "?",
+      "modifiers": [],
+      "action": "user_review_keys",
+      "when": "mode:review-diff"
+    },
+    {
+      "key": "?",
+      "modifiers": [],
+      "action": "user_review_keys",
+      "when": "mode:diff-view"
+    },
+    {
       "keys": [
         {
           "key": "g",
@@ -462,7 +480,7 @@
       "modifiers": [
         "ctrl"
       ],
-      "action": "open_terminal_in_dock",
+      "action": "user_open_terminal",
       "when": "normal"
     },
     {
@@ -470,7 +488,7 @@
       "modifiers": [
         "ctrl"
       ],
-      "action": "open_terminal_in_dock",
+      "action": "user_open_terminal",
       "when": "mode:vi-normal"
     },
     {
@@ -478,7 +496,7 @@
       "modifiers": [
         "ctrl"
       ],
-      "action": "open_terminal_in_dock",
+      "action": "user_open_terminal",
       "when": "mode:vi-insert"
     },
     {
@@ -1659,6 +1677,14 @@
       ],
       "action": "python_debug_sidebar",
       "when": "mode:python-debug-panel"
+    },
+    {
+      "key": "l",
+      "modifiers": [
+        "ctrl"
+      ],
+      "action": "noop",
+      "when": "terminal"
     }
   ],
   "file_explorer": {

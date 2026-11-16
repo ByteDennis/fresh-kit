@@ -788,3 +788,99 @@ registerHandler("python_outline_focus",()=>{if(pythonOutline.mounted) editor.flo
 editor.registerCommand("Python: Focus Outline","Focus Python symbols in the sidebar","python_outline_focus");
 registerHandler("python_outline_init",()=>pythonOutlineTrack(editor.getActiveBufferId()));
 editor.setTimeout(1200,"python_outline_init");
+
+// Open another project without closing the current workspace.
+async function openFolderAt(value: string) {
+  if(!value.trim()) return;
+  try {
+    const program="import os,sys,json\np=os.path.realpath(os.path.join(sys.argv[1],os.path.expanduser(sys.argv[2])))\nprint(json.dumps({'path':p,'directory':os.path.isdir(p)}))";
+    const result=await editor.spawnProcess(FRESH_KIT_PYTHON,["-c",program,editor.getCwd(),value.trim()]);
+    if(result.exit_code!==0) throw new Error(result.stderr.trim() || "Could not resolve folder");
+    const folder=JSON.parse(result.stdout);
+    if(!folder.directory) {editor.setStatus("Folder does not exist or is not a directory");return;}
+    const key=(path:string)=>{const normalized=path.replace(/\\/g,"/").replace(/^\/\/\?\//,"").replace(/\/+$/,"");return editor.getEnv("OS")==="Windows_NT" ? normalized.toLowerCase() : normalized;};
+    await editor.loadWorkspaces();
+    let target=editor.listWindows().find(w=>key(w.root)===key(folder.path));
+    let created=false;
+    if(!target) {
+      created=true;
+      if(!editor.createWindow(folder.path,"")) throw new Error("Could not create workspace");
+      await editor.flush();
+      target=editor.listWindows().find(w=>key(w.root)===key(folder.path));
+    }
+    if(!target) throw new Error("Workspace could not be found after creation");
+    editor.setActiveWindow(target.id);
+    if(created) {await editor.flush();editor.executeAction("focus_file_explorer");}
+  } catch(e) {editor.setStatus(`Open Folder: ${String(e)}`);}
+}
+function folderSuggestions(input:string) {
+  const normalized=input.replace(/\\/g,"/");
+  const slash=normalized.lastIndexOf("/");
+  const base=slash<0 ? "" : normalized.slice(0,slash+1);
+  const pattern=slash<0 ? normalized : normalized.slice(slash+1);
+  let lookup=base || editor.getCwd();
+  if(lookup==="~/") lookup=editor.getHomeDir();
+  else if(lookup.startsWith("~/")) lookup=editor.pathJoin(editor.getHomeDir(),lookup.slice(2));
+  else if(!editor.pathIsAbsolute(lookup)) lookup=editor.pathJoin(editor.getCwd(),lookup);
+  const exact=input.startsWith("~/") ? editor.pathJoin(editor.getHomeDir(),input.slice(2)) : editor.pathIsAbsolute(input) ? input : editor.pathJoin(editor.getCwd(),input);
+  const stat=editor.fileStat(exact) as {isDir?:boolean}|null;
+  const rows: {id:string;text:string;value:string;description?:string}[]=[];
+  if(stat?.isDir) rows.push({id:"current:"+input,text:"Open this folder",value:input,description:input});
+  for(const entry of editor.readDir(lookup).filter(e=>e.is_dir && (pattern.startsWith(".") || !e.name.startsWith(".")) && e.name.toLowerCase().startsWith(pattern.toLowerCase())).sort((a,b)=>a.name.localeCompare(b.name)).slice(0,100)) {
+    const path=base+entry.name+"/";rows.push({id:path,text:entry.name+"/",value:path,description:"Folder"});
+  }
+  editor.setPromptSuggestions(rows,0);
+}
+registerHandler("user_open_folder",()=>{const initial=editor.getCwd().replace(/\\/g,"/").replace(/\/+$/,"")+"/";editor.startPromptWithInitial("Open folder: ","user-open-folder",initial);folderSuggestions(initial);});
+editor.on("prompt_changed",e=>{if(e.prompt_type==="user-open-folder") folderSuggestions(e.input);});
+editor.on("prompt_confirmed",e=>{if(e.prompt_type==="user-open-folder") void openFolderAt(e.input);});
+editor.registerCommand("Open Folder","Open a directory in a workspace","user_open_folder");
+
+// A compact, read-only shortcut reference for Fresh's built-in Review Diff.
+const REVIEW_KEYS_PANEL=38483;
+const REVIEW_KEYS_MODE="review-keys-popup";
+const REVIEW_KEYS_LINES=[
+  "  NAVIGATION",
+  "  j / k        Move                  n / p     Next / previous change",
+  "  , / .        Previous / next file  Tab       Switch focus",
+  "  Enter        Open side-by-side     Alt+O     Open working file",
+  "",
+  "  DISPLAY",
+  "  1 / 2 / 0    Unified / split / auto",
+  "  F / C        Toggle files / comments     /    Filter files",
+  "  z a / z r    Collapse / expand all     W    Toggle auto-refresh",
+  "",
+  "  CHANGES",
+  "  s / u / d    Stage / unstage / discard selected change",
+  "  S / U / D    Stage / unstage / discard whole file",
+  "  v            Select lines          c / x     Add / delete comment",
+  "",
+  "  r            Refresh               q         Close review",
+  "",
+  "  ?  Close shortcuts"
+];
+function reviewKeysClose() {editor.unmountFloatingWidget(REVIEW_KEYS_PANEL);}
+registerHandler("user_review_keys_close",reviewKeysClose);
+editor.defineMode(REVIEW_KEYS_MODE,[["?","user_review_keys_close"],["q","user_review_keys_close"],["Escape","user_review_keys_close"]],true,false);
+registerHandler("user_review_keys",()=>{
+  editor.mountFloatingWidget(REVIEW_KEYS_PANEL,{kind:"col",children:REVIEW_KEYS_LINES.map(text=>({kind:"label",text,labelWidth:0,wrap:false,elide:"tail"}))},65,65,false,true,"Review Keys",true,false,REVIEW_KEYS_MODE);
+});
+editor.registerCommand("Review Diff: Keys","Show Review Diff shortcuts","user_review_keys");
+
+// Open a terminal in the native utility dock with a stable shell-only label.
+async function userOpenTerminal() {
+  const before=new Set(editor.listBuffers().map(b=>b.id));
+  editor.executeAction("open_terminal_in_dock");
+  await editor.flush();
+  const temp=editor.getActiveBufferId();
+  if(before.has(temp) || !editor.getBufferInfo(temp)?.is_terminal) {editor.setStatus("Could not create terminal dock");return;}
+  try {
+    const shellConfig=editor.getConfig().terminal?.shell as any;
+    const executable=(typeof shellConfig==="string" ? shellConfig : shellConfig?.program ?? shellConfig?.command) || editor.getEnv("SHELL") || editor.getEnv("COMSPEC") || "Terminal";
+    const title=String(executable).split(/[\\/]/).pop()?.replace(/\.exe$/i,"") || "Terminal";
+    await editor.createTerminal({title:`${title} `,persistent:true});
+    editor.closeBuffer(temp,true);
+  } catch(e) {editor.setStatus(`Terminal: ${String(e)}`);}
+}
+registerHandler("user_open_terminal",userOpenTerminal);
+editor.registerCommand("Open Terminal","Open a shell in the utility dock","user_open_terminal");
