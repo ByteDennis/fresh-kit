@@ -3,6 +3,7 @@ on:
   push:
     branches: ['feat/windows-exe']
   workflow_dispatch:
+  workflow_call:
 permissions:
   contents: read
 jobs:
@@ -13,8 +14,10 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: '3.12'
-      - name: Fetch and verify Fresh, prepare payload
-        run: python portable/build_payload.py
+      - name: Build Fresh with isolated configuration support
+        run: python portable/build_fresh.py "${{ runner.temp }}/fresh-upstream"
+      - name: Prepare payload
+        run: python portable/build_payload.py "${{ runner.temp }}/fresh-upstream/target/min-size/fresh.exe" "${{ runner.temp }}/fresh-upstream/LICENSE"
       - name: Test launcher
         run: cargo test --locked --manifest-path portable/launcher/Cargo.toml
       - name: Build small EXE

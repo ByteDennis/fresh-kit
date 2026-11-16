@@ -82,7 +82,6 @@ fn prepare(runtime: &Path, target: &Path, python: Option<&Path>, missing: &[Stri
     if current.is_none() || previous["init_hash"].as_str()==current.as_deref() {
         let template=fs::read_to_string(root.join("config/init.ts"))?;
         let mut output=template.replace("__FRESH_KIT_PYTHON__", &serde_json::to_string(&python_path)?);
-        output=output.replace("await editor.createTerminal({title:`${title} `,persistent:true});", "await editor.createTerminal({title:`${title} `,persistent:true,env:editor.getEnv(\"FRESH_KIT_ORIGINAL_APPDATA\") ? {APPDATA:editor.getEnv(\"FRESH_KIT_ORIGINAL_APPDATA\")!} : {}});");
         let notice = if python.is_none() { Some("Python 3.10+ not found; Python features are unavailable".to_string()) }
             else if !missing.is_empty() { Some(format!("Missing Python packages: {}. Install python-lsp-server debugpy Send2Trash", missing.join(", "))) }
             else { None };
@@ -111,7 +110,7 @@ fn run() -> Result<i32, Box<dyn std::error::Error>> {
     }
     if python.is_none() { eprintln!("Python 3.10+ was not found; Python-related features will be unavailable."); }
     let mut command=Command::new(runtime.join("fresh.exe"));
-    command.env("APPDATA",&profile).env("FRESH_KIT_ORIGINAL_APPDATA",env::var_os("APPDATA").unwrap_or_default());
+    command.env("FRESH_KIT_CONFIG_DIR",profile.join("fresh"));
     command.args(env::args_os().skip(1));
     Ok(command.status()?.code().unwrap_or(1))
 }
