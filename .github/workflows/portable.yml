@@ -1,0 +1,29 @@
+name: Windows EXE
+on:
+  push:
+    branches: ['feat/windows-exe']
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  build:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Fetch and verify Fresh, prepare payload
+        run: python portable/build_payload.py
+      - name: Test launcher
+        run: cargo test --locked --manifest-path portable/launcher/Cargo.toml
+      - name: Build small EXE
+        run: cargo build --locked --release --manifest-path portable/launcher/Cargo.toml
+      - name: Test packaged EXE
+        shell: pwsh
+        run: ./portable/tests/smoke.ps1 -Executable "$PWD/portable/launcher/target/release/fresh-kit.exe"
+      - uses: actions/upload-artifact@v4
+        with:
+          name: FreshKit-windows-x64
+          path: portable/launcher/target/release/fresh-kit.exe
+          if-no-files-found: error

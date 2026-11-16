@@ -1,23 +1,19 @@
 # Fresh Kit
 
-Fresh Kit brings a Vi-style Fresh setup, a Gruvbox theme, file explorer improvements, Python outline, and an experimental Python debugger to another computer.
+A lightweight Fresh setup with Vi-style editing, Gruvbox, an enhanced file explorer, Python outline and debugging.
 
-## Install
+## Windows
 
-1. Install [Fresh](https://github.com/sinelaw/fresh) 0.5.8 and Python 3.10 or newer. On Windows, Fresh is available through `winget install fresh-editor`.
-2. Download and extract the latest release ZIP.
-3. Open a terminal in the extracted folder and run:
+Download `FreshKit.exe` from Releases and run it. Its configuration is stored separately in `%LOCALAPPDATA%/FreshKit`; existing Fresh settings are not overwritten.
 
-   Windows:
+Python is not bundled. Install Python 3.10+ and these packages for Python-related features:
 
-   ```powershell
-   py -3 install.py
-   ```
+```powershell
+python -m pip install python-lsp-server debugpy Send2Trash
+```
 
-   Linux or macOS:
+## Linux and macOS
 
-   ```sh
-   python3 install.py
-   ```
+Install [Fresh](https://github.com/sinelaw/fresh) and Python 3.10+, extract the release ZIP, and run `python3 install.py`. Existing Fresh configuration is backed up first.
 
-4. Restart Fresh and trust your project when prompted.
+Fresh Kit embeds the upstream [Fresh 0.5.8 release](https://github.com/sinelaw/fresh/releases/tag/v0.5.8); its [source code](https://github.com/sinelaw/fresh/tree/v0.5.8) and GPL license are available from the upstream project.

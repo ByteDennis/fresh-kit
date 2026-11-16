@@ -2,3 +2,6 @@ __pycache__/
 *.pyc
 .venv/
 dist/
+portable/payload.zip
+portable/launcher/target/
+portable/staging/

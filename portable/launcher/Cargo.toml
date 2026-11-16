@@ -1,0 +1,16 @@
+[package]
+name = "fresh-kit"
+version = "0.3.0"
+edition = "2021"
+
+[dependencies]
+serde_json = "1"
+flate2 = { version = "1", default-features = false, features = ["rust_backend"] }
+zip = { version = "2.4", default-features = false, features = ["deflate-flate2", "flate2"] }
+
+[profile.release]
+opt-level = "z"
+lto = true
+codegen-units = 1
+strip = true
+panic = "abort"
