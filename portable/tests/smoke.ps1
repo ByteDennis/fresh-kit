@@ -19,7 +19,7 @@ $env:FRESH_KIT_CONFIG_DIR = $profile
 $types = Join-Path $profile 'types'
 New-Item -ItemType Directory -Force -Path $types | Out-Null
 Invoke-WebRequest -Uri 'https://raw.githubusercontent.com/sinelaw/fresh/v0.5.8/crates/fresh-editor/plugins/lib/fresh.d.ts' -OutFile (Join-Path $types 'fresh.d.ts')
-$fresh = Join-Path $env:LOCALAPPDATA 'FreshKit/runtime/0.3.0/fresh.exe'
+$fresh = Join-Path $env:LOCALAPPDATA 'FreshKit/runtime/0.2.0/fresh.exe'
 & $fresh --cmd config paths | Out-File -Encoding utf8 (Join-Path $env:RUNNER_TEMP 'fresh-paths.txt')
 if (-not ((Get-Content -Raw (Join-Path $env:RUNNER_TEMP 'fresh-paths.txt')).Contains($profile))) { throw 'Fresh did not use isolated configuration' }
 & $fresh --cmd script check (Join-Path $profile 'init.ts')

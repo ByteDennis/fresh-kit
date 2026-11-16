@@ -16,4 +16,4 @@ python -m pip install python-lsp-server debugpy Send2Trash
 
 Install [Fresh](https://github.com/sinelaw/fresh) and Python 3.10+, extract the release ZIP, and run `python3 install.py`. Existing Fresh configuration is backed up first.
 
-Fresh Kit embeds the upstream [Fresh 0.5.8 release](https://github.com/sinelaw/fresh/releases/tag/v0.5.8); its [source code](https://github.com/sinelaw/fresh/tree/v0.5.8) and GPL license are available from the upstream project.
+Fresh Kit includes [Fresh 0.5.8](https://github.com/sinelaw/fresh/releases/tag/v0.5.8); its [source code](https://github.com/sinelaw/fresh/tree/v0.5.8) and GPL license are available from the upstream project. The Windows build applies the configuration-directory patch in `portable/build_fresh.py`.
