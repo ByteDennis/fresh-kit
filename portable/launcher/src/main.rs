@@ -111,6 +111,8 @@ fn run() -> Result<i32, Box<dyn std::error::Error>> {
     if python.is_none() { eprintln!("Python 3.10+ was not found; Python-related features will be unavailable."); }
     let mut command=Command::new(runtime.join("fresh.exe"));
     command.env("FRESH_KIT_CONFIG_DIR",profile.join("fresh"));
+    // Keep the patched embedded build intact; updates ship as new Kit executables.
+    command.arg("--no-upgrade-check");
     command.args(env::args_os().skip(1));
     Ok(command.status()?.code().unwrap_or(1))
 }
